@@ -21,7 +21,8 @@ export const AppProvider = ({ children }) => {
         try {
             const res = await axios.get('https://placement-tracker-app-backend.onrender.com/tasks');
             console.log("Fetched tasks:", res.data);
-            const rawTasks = res.data;
+
+            const rawTasks = res.data.data;
 
             const grouped = rawTasks.reduce((acc, task) => {
                 const user = task.username;
@@ -35,6 +36,7 @@ export const AppProvider = ({ children }) => {
             console.error("Error fetching tasks:", err);
         }
     };
+
 
     const addTask = async (username, newTask) => {
         const taskToSave = {
