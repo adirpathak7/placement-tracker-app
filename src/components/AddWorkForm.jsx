@@ -10,13 +10,13 @@ const AddWorkForm = () => {
         e.preventDefault();
 
         if (!today) {
-            alert("Please enter today's work!");
+            document.getElementById('todayWorkError').innerHTML = "Please enter the work!"
             document.getElementById('todayWork').focus();
             return;
         }
 
         if (!next) {
-            alert("Please enter tomorrow's work!");
+            document.getElementById('nextDayWorkError').innerHTML = "Please enter tomorrow's work!"
             document.getElementById('nextDayWork').focus();
             return;
         }
@@ -30,7 +30,9 @@ const AddWorkForm = () => {
         addTask(currentUser, task);
         setToday('');
         setNext('');
-        alert('Work added successfully!');
+        document.getElementById('todayWorkError').innerHTML = ""
+        document.getElementById('nextDayWorkError').innerHTML = ""
+        // alert('Work added successfully!');
     };
 
     return (
@@ -43,6 +45,7 @@ const AddWorkForm = () => {
                 placeholder="What did you do today?"
                 className="w-full p-2 mb-2 border rounded"
             />
+            <span id='todayWorkError' className='text-red-500'></span>
             <textarea
                 value={next}
                 id='nextDayWork'
@@ -50,6 +53,7 @@ const AddWorkForm = () => {
                 placeholder="What's your plan for tomorrow?"
                 className="w-full p-2 mb-2 border rounded"
             />
+            <span id='nextDayWorkError' className='text-red-500'></span>
             <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer">
                 Save Work
             </button>

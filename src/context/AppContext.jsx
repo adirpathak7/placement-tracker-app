@@ -20,7 +20,7 @@ export const AppProvider = ({ children }) => {
     const fetchTasks = async () => {
         try {
             const res = await axios.get('https://placement-tracker-app-backend.onrender.com/tasks');
-            console.log("Fetched tasks:", res.data);
+            // console.log("Fetched tasks:", res.data);
 
             const rawTasks = res.data.data;
 
@@ -46,7 +46,7 @@ export const AppProvider = ({ children }) => {
 
         try {
             const res = await axios.post('https://placement-tracker-app-backend.onrender.com/tasks', taskToSave);
-            console.log("add: " + res);
+            // console.log("add: " + res);
 
             const updatedUserTasks = [...(tasks[username] || []), res.data];
             setTasks(prev => ({

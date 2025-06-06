@@ -21,19 +21,16 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!username) {
-            alert('Please enter username!')
+        if (!username && !password) {
+            setError('Please fill all fields!');
             document.getElementById('username').focus()
             return false
         }
 
-        if (!password) {
-            alert('Please enter password!')
-            document.getElementById('password').focus()
-            return false
-        }
+        setError('')
 
         if (credentials[username] && credentials[username] === password) {
+            setError('')
             localStorage.setItem('loggedInUser', JSON.stringify(username));
             await login(username);
         } else {
