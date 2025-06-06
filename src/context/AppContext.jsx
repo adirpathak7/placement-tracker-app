@@ -19,7 +19,7 @@ export const AppProvider = ({ children }) => {
 
     const fetchTasks = async () => {
         try {
-            const res = await axios.get('http://localhost:3001/tasks');
+            const res = await axios.get('https://placement-tracker-app-backend.onrender.com/tasks');
             const rawTasks = res.data;
 
             const grouped = rawTasks.reduce((acc, task) => {
@@ -43,7 +43,7 @@ export const AppProvider = ({ children }) => {
         };
 
         try {
-            const res = await axios.post('http://localhost:3001/tasks', taskToSave);
+            const res = await axios.post('https://placement-tracker-app-backend.onrender.com/tasks', taskToSave);
 
             const updatedUserTasks = [...(tasks[username] || []), res.data];
             setTasks(prev => ({

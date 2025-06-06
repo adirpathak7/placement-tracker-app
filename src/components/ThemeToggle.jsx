@@ -9,10 +9,10 @@ const ThemeToggle = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/'); // logout ke baad login page pe redirect
+        navigate('/');
     };
 
-    if (!currentUser) return null; // agar user login nahi to button mat dikha
+    if (!currentUser) return null;
 
     return (
         <button
