@@ -54,6 +54,7 @@ const AddWorkForm = () => {
                 className="w-full p-2 mb-2 border rounded"
             />
             <span id='nextDayWorkError' className='text-red-500'></span>
+            <br />
             <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded cursor-pointer">
                 Save Work
             </button>
