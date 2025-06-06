@@ -1,5 +1,5 @@
 // ✅ src/App.jsx
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Roadmap from './components/Roadmap';
@@ -12,7 +12,15 @@ import { AppContext } from './context/AppContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
 const Dashboard = () => {
-  const { currentUser } = useContext(AppContext);
+  const { currentUser, login } = useContext(AppContext);
+
+  useEffect(() => {
+    const user = localStorage.getItem('loggedInUser');
+    if (user) {
+      login(user);
+    }
+  }, []);
+
 
   return (
     <>
@@ -25,6 +33,7 @@ const Dashboard = () => {
     </>
   );
 };
+
 
 const App = () => {
   const { currentUser } = useContext(AppContext);

@@ -3,13 +3,13 @@ import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
 const credentials = {
-    adi: 'adi2147',
-    akash: 'akash29',
-    somnath: 'somnath15',
+    adi: 'adirp7',
+    akash: 'akash',
+    somnath: 'somnath18',
     avnish: 'avi75',
-    om: 'om18',
+    omgupta: 'omgupta',
     pavan: 'pavan28',
-    prince: 'shivu55',
+    prince: 'prince123',
 };
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!username) {
@@ -33,9 +33,9 @@ const Login = () => {
             return false
         }
 
-        
         if (credentials[username] && credentials[username] === password) {
-            login(username);
+            localStorage.setItem('loggedInUser', JSON.stringify(username));
+            await login(username);
         } else {
             setError('Invalid credentials. Try again.');
             setUsername('')

@@ -5,7 +5,11 @@ import { AppContext } from '../context/AppContext';
 const TaskBoard = () => {
     const { tasks, currentUser } = useContext(AppContext);
 
-    const users = Object.keys(tasks);
+    const users = Object.keys(tasks || {});
+    
+    if (!users.length) {
+        return <p className="text-center text-gray-500">No task data available yet.</p>;
+    }
 
     return (
         <div className="mt-4">

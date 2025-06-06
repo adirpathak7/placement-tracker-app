@@ -1,5 +1,3 @@
-
-// ✅ src/components/AddWorkForm.jsx
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
@@ -12,15 +10,15 @@ const AddWorkForm = () => {
         e.preventDefault();
 
         if (!today) {
-            alert("Please enter today's work!")
-            document.getElementById('todayWork').focus()
-            return false
+            alert("Please enter today's work!");
+            document.getElementById('todayWork').focus();
+            return;
         }
 
         if (!next) {
-            alert("Please enter tomorrow's work!")
-            document.getElementById('nextDayWork').focus()
-            return false
+            alert("Please enter tomorrow's work!");
+            document.getElementById('nextDayWork').focus();
+            return;
         }
 
         const task = {
@@ -28,6 +26,7 @@ const AddWorkForm = () => {
             today,
             next
         };
+
         addTask(currentUser, task);
         setToday('');
         setNext('');

@@ -7,8 +7,8 @@ const LogoutButton = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        logout();         // Clear context and localStorage
-        navigate('/');    // Redirect to login page
+        logout();
+        navigate('/');
     };
 
     return (

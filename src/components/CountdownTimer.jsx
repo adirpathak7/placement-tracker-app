@@ -1,35 +1,40 @@
-// ✅ src/components/CountdownTimer.jsx
+// CountdownTimer.js
 import React, { useEffect, useState } from 'react';
 
 const CountdownTimer = () => {
-    const start = new Date(localStorage.getItem('startDate') || new Date().toISOString());
-    const end = new Date(start);
-    end.setDate(start.getDate() + 29);
-
-    const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(end));
+    const [timeLeft, setTimeLeft] = useState({});
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            setTimeLeft(getTimeLeft(end));
-        }, 1000);
-        return () => clearInterval(interval);
-    }, [end]);
+        const startDate = new Date("2025-06-01T00:00:00Z");
 
-    function getTimeLeft(endTime) {
-        const now = new Date();
-        const diff = endTime - now;
-        if (diff <= 0) return { d: 0, h: 0, m: 0, s: 0 };
-        return {
-            d: Math.floor(diff / (1000 * 60 * 60 * 24)),
-            h: Math.floor((diff / (1000 * 60 * 60)) % 24),
-            m: Math.floor((diff / 1000 / 60) % 60),
-            s: Math.floor((diff / 1000) % 60)
+        const deadline = new Date(startDate.getTime() + 29 * 24 * 60 * 60 * 1000);
+
+        const updateTimer = () => {
+            const now = new Date();
+            const diff = deadline - now;
+
+            if (diff <= 0) {
+                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            setTimeLeft({ days, hours, minutes, seconds });
         };
-    }
+
+        updateTimer();
+        const interval = setInterval(updateTimer, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <div className="text-center text-2xl font-bold mb-4">
-            ⏳ {timeLeft.d}d {timeLeft.h}h {timeLeft.m}m {timeLeft.s}s left!
+        <div className="text-center font-bold text-xl">
+            ⏳ {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m {timeLeft.seconds}s left
         </div>
     );
 };
