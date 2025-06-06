@@ -45,7 +45,7 @@ const Login = () => {
             <div className="w-full max-w-sm p-6 bg-white dark:bg-gray-800 rounded-xl shadow">
                 <h2 className="text-2xl font-bold mb-4 text-center">🔐 Login</h2>
                 <form onSubmit={handleSubmit}>
-                    {error && <p className="text-red-600 mb-2">{error}</p>}
+                    {error && <p className="text-white mb-2">{error}</p>}
                     <input
                         type="text"
                         id='username'
