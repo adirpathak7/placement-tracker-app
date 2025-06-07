@@ -1,4 +1,3 @@
-// ✅ src/components/Login.jsx
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 
@@ -23,48 +22,47 @@ const Login = () => {
 
         if (!username && !password) {
             setError('Please fill all fields!');
-            document.getElementById('username').focus()
-            return false
+            document.getElementById('username').focus();
+            return;
         }
 
-        setError('')
+        setError('');
 
         if (credentials[username] && credentials[username] === password) {
-            setError('')
             localStorage.setItem('loggedInUser', JSON.stringify(username));
             await login(username);
         } else {
             setError('Invalid credentials. Try again.');
-            setUsername('')
-            setPassword('')
+            setUsername('');
+            setPassword('');
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-            <div className="w-full max-w-sm p-6 bg-white dark:bg-gray-800 rounded-xl shadow">
+        <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+            <div className="w-full max-w-sm p-6 bg-gray-800 rounded-xl shadow">
                 <h2 className="text-2xl font-bold mb-4 text-center">🔐 Login</h2>
                 <form onSubmit={handleSubmit}>
-                    {error && <p className="text-white mb-2">{error}</p>}
+                    {error && <p className="text-red-400 mb-2">{error}</p>}
                     <input
                         type="text"
-                        id='username'
+                        id="username"
                         placeholder="Username"
-                        className="w-full p-2 mb-2 border rounded"
+                        className="w-full p-2 mb-2 bg-gray-700 text-white border border-gray-600 rounded"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <input
                         type="password"
-                        id='password'
+                        id="password"
                         placeholder="Password"
-                        className="w-full p-2 mb-2 border rounded"
+                        className="w-full p-2 mb-2 bg-gray-700 text-white border border-gray-600 rounded"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <button
                         type="submit"
-                        className="bg-blue-600 text-white w-full py-2 rounded cursor-pointer"
+                        className="bg-blue-600 hover:bg-blue-700 text-white w-full py-2 rounded cursor-pointer"
                     >
                         Login
                     </button>

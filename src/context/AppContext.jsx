@@ -19,10 +19,9 @@ export const AppProvider = ({ children }) => {
 
     const fetchTasks = async () => {
         try {
-            const res = await axios.get('https://placement-tracker-app-backend.onrender.com/tasks');
-            // console.log("Fetched tasks:", res.data);
-
+            const res = await axios.get('https://placement-tracker-app-backend-1.onrender.com/tasks');
             const rawTasks = res.data.data;
+            console.log(rawTasks);
 
             const grouped = rawTasks.reduce((acc, task) => {
                 const user = task.username;
@@ -45,10 +44,11 @@ export const AppProvider = ({ children }) => {
         };
 
         try {
-            const res = await axios.post('https://placement-tracker-app-backend.onrender.com/tasks', taskToSave);
-            // console.log("add: " + res);
+            const res = await axios.post('https://placement-tracker-app-backend-1.onrender.com/tasks', taskToSave);
+            const savedTask = res.data.data;
+            console.log(savedTask);
 
-            const updatedUserTasks = [...(tasks[username] || []), res.data];
+            const updatedUserTasks = [...(tasks[username] || []), savedTask];
             setTasks(prev => ({
                 ...prev,
                 [username]: updatedUserTasks
@@ -57,6 +57,7 @@ export const AppProvider = ({ children }) => {
             console.error("Error adding task:", err);
         }
     };
+
 
     useEffect(() => {
         const savedUser = localStorage.getItem('loggedInUser');
