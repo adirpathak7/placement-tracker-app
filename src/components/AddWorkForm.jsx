@@ -3,19 +3,19 @@ import { AppContext } from '../context/AppContext';
 
 const AddWorkForm = () => {
     const { currentUser, addTask } = useContext(AppContext);
-    const [today, setToday] = useState('');
-    const [next, setNext] = useState('');
+    const [todayWork, setTodayWork] = useState('');
+    const [nextDayWork, setNextDayWork] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!today) {
+        if (!todayWork) {
             document.getElementById('todayWorkError').innerHTML = "Please enter the work!";
             document.getElementById('todayWork').focus();
             return;
         }
 
-        if (!next) {
+        if (!nextDayWork) {
             document.getElementById('nextDayWorkError').innerHTML = "Please enter tomorrow's work!";
             document.getElementById('nextDayWork').focus();
             return;
@@ -23,13 +23,13 @@ const AddWorkForm = () => {
 
         const task = {
             date: new Date().toISOString().split('T')[0],
-            today,
-            next,
+            todayWork,
+            nextDayWork,
         };
 
         addTask(currentUser, task);
-        setToday('');
-        setNext('');
+        setTodayWork('');
+        setNextDayWork('');
         document.getElementById('todayWorkError').innerHTML = "";
         document.getElementById('nextDayWorkError').innerHTML = "";
     };
@@ -39,18 +39,18 @@ const AddWorkForm = () => {
             <h2 className="text-lg font-bold mb-2">➕ Add Your Work</h2>
 
             <textarea
-                value={today}
+                value={todayWork}
                 id="todayWork"
-                onChange={(e) => setToday(e.target.value)}
+                onChange={(e) => setTodayWork(e.target.value)}
                 placeholder="What did you do today?"
                 className="w-full p-2 mb-2 bg-gray-700 text-white border border-gray-600 rounded"
             />
             <span id="todayWorkError" className="text-red-400 text-sm block mb-2"></span>
 
             <textarea
-                value={next}
+                value={nextDayWork}
                 id="nextDayWork"
-                onChange={(e) => setNext(e.target.value)}
+                onChange={(e) => setNextDayWork(e.target.value)}
                 placeholder="What's your plan for tomorrow?"
                 className="w-full p-2 mb-2 bg-gray-700 text-white border border-gray-600 rounded"
             />
