@@ -1,11 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import Loader from '../components/Loader';
 
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [tasks, setTasks] = useState({});
+    const [loading, setLoading] = useState(true);
 
     const login = (username) => {
         setCurrentUser(username);
@@ -19,9 +21,9 @@ export const AppProvider = ({ children }) => {
 
     const fetchTasks = async () => {
         try {
+            setLoading(true);
             const res = await axios.get('https://placement-tracker-app-backend-1.onrender.com/tasks');
             const rawTasks = res.data.data;
-            console.log(rawTasks);
 
             const grouped = rawTasks.reduce((acc, task) => {
                 const user = task.username;
@@ -33,20 +35,18 @@ export const AppProvider = ({ children }) => {
             setTasks(grouped);
         } catch (err) {
             console.error("Error fetching tasks:", err);
+        } finally {
+            setLoading(false);
         }
     };
 
-
     const addTask = async (username, newTask) => {
-        const taskToSave = {
-            ...newTask,
-            username
-        };
+        const taskToSave = { ...newTask, username };
 
         try {
+            setLoading(true);
             const res = await axios.post('https://placement-tracker-app-backend-1.onrender.com/tasks', taskToSave);
             const savedTask = res.data.data;
-            console.log(savedTask);
 
             const updatedUserTasks = [...(tasks[username] || []), savedTask];
             setTasks(prev => ({
@@ -55,9 +55,10 @@ export const AppProvider = ({ children }) => {
             }));
         } catch (err) {
             console.error("Error adding task:", err);
+        } finally {
+            setLoading(false);
         }
     };
-
 
     useEffect(() => {
         const savedUser = localStorage.getItem('loggedInUser');
@@ -73,9 +74,11 @@ export const AppProvider = ({ children }) => {
                 logout,
                 tasks,
                 addTask,
-                setTasks
+                setTasks,
+                loading,
             }}
         >
+            {loading && <Loader />}
             {children}
         </AppContext.Provider>
     );

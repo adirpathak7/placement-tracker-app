@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Roadmap = () => {
-    const totalDays = 23;
+    const totalDays = 33; // Updated from 23 to 33
     const startDate = new Date("2025-06-01T00:00:00Z");
     const today = new Date();
 
@@ -9,7 +9,7 @@ const Roadmap = () => {
 
     return (
         <div className="my-4 text-white">
-            <h2 className="text-xl font-semibold mb-2">🚀 23-Day Placement Roadmap</h2>
+            <h2 className="text-xl font-semibold mb-2">🚀 33-Day Placement Roadmap</h2>
             <div className="grid grid-cols-7 gap-1">
                 {[...Array(totalDays)].map((_, index) => (
                     <div
